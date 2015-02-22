@@ -1,9 +1,24 @@
 {
-	"name" : "chatserver",
-	"description" : "WEPO Chat client assignment",
-	"version" : "0.0.1",
-	"dependencies" : {  
-		"express" : "3.1.0",
-		"socket.io" : "0.9.13"
-	}
+  "name": "chatserver",
+  "description": "WEPO Chat client assignment",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "3.1.0",
+    "socket.io": "0.9.13"
+  },
+  "main": "chatserver.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kotkarl/ChatProgram.git"
+  },
+  "author": "Hrafnkell Baldursson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kotkarl/ChatProgram/issues"
+  },
+  "homepage": "https://github.com/kotkarl/ChatProgram"
 }
