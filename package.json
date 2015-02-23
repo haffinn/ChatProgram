@@ -1,32 +1,9 @@
 {
-  "name": "chatserver",
-  "description": "WEPO Chat client assignment",
-  "version": "0.0.1",
-  "dependencies": {
-    "express": "3.1.0",
-    "socket.io": "0.9.13"
-  },
-  "main": "chatserver.js",
-  "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-contrib-jshint": "^0.11.0",
-    "jshint-stylish": "latest",
-    "grunt-contrib-uglify": "latest",
-    "grunt-contrib-less": "latest",
-    "grunt-contrib-cssmin": "latest",
-    "grunt-contrib-watch": "latest"
-  },
-  "scripts": {
-    "test": "test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/kotkarl/ChatProgram.git"
-  },
-  "author": "Hrafnkell Baldursson",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/kotkarl/ChatProgram/issues"
-  },
-  "homepage": "https://github.com/kotkarl/ChatProgram"
+	"name" : "chatserver",
+	"description" : "WEPO Chat client assignment",
+	"version" : "0.0.1",
+	"dependencies" : {  
+		"express" : "3.1.0",
+		"socket.io" : "0.9.13"
+	}
 }
