@@ -37,8 +37,8 @@ module.exports = function ( grunt ) {
         }
       }
     }
-
- };
+  }
+};
  grunt.initConfig(taskConfig);
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
