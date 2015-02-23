@@ -1,1 +1,1 @@
-keyra "npm install -d" í verkefnamöppunni til að sækja dependencies fyrir chatserver!
+This is a chat room program, which allows users to sign in and chat with other users
