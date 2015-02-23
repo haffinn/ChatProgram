@@ -6,7 +6,23 @@ module.exports = function ( grunt ) {
      src: ['src/js/*.js', '!js/app.js', '!js/socket.io.min.js', '!js/socket-factory.js'],
      gruntfile: ['Gruntfile.js'],
      options: {
-     	reporter: require('jshint-stylish') // use jshint-stylish to make our errors look and read good
+     	curly:  true,
+      immed:  true,
+      newcap: true,
+      noarg:  true,
+      sub:    true,
+      boss:   true,
+      eqnull: true,
+      node:   true,
+      undef:  true,
+      globals: {
+        _:       false,
+        jQuery:  false,
+        angular: false,
+        moment:  false,
+        console: false,
+        $:       false,
+        io:      false
      }
      	//build: ['Gruntfile.js', 'src/**/*.js']
    },
@@ -25,7 +41,7 @@ module.exports = function ( grunt ) {
  };
  grunt.initConfig(taskConfig);
 
- grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
