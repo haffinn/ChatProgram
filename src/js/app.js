@@ -37,6 +37,7 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 	$scope.rooms = ['Room 1','Room 2','Room 3','Room 4','Room 5'];
 	$scope.currentUser = $routeParams.user;
 	$scope.roomname = '';
+	$scope.message = "hello from roomscontroller";
  
     $scope.newRoom = function() {
         $scope.rooms.push($scope.roomname);
@@ -49,16 +50,38 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	$scope.currentUser = $routeParams.user;
 	$scope.currentUsers = [];
 	$scope.errorMessage = '';
+	$scope.message = '';
+	$scope.messages = [];
  
 	socket.on('updateusers', function (roomName, users, ops) {
 		// TODO: Check if the roomName equals the current room !
 		$scope.currentUsers = users;
 	});		
  
-	socket.emit('joinroom', $scope.currentRoom, function (success, reason) {
+	socket.emit('joinroom', {room: $scope.currentRoom}, function (success, reason) {
 		if (!success)
 		{
 			$scope.errorMessage = reason;
 		}
 	});
+
+	console.log("above submitMsg");
+
+	 $scope.submitMsg = function() {			
+		if ($scope.message === '') {
+			$scope.errorMessage = 'Please enter a message before continuing!';
+		} else {
+			socket.emit('sendmsg', {roomName: $scope.currentRoom, msg: $scope.message} );
+			
+			socket.on('updatechat', function(roomName, messageHistory) {
+				//pushes all current messages to the messages array to be displayed
+    			var msgArray = messageHistory;
+    			$scope.messages.splice(0, $scope.messages.length);
+    			for(var i = 0; i < msgArray.length; i++){
+    				console.log(msgArray[i]);
+    				$scope.messages.push(msgArray[i]);
+    			}
+    		});
+    	}
+    };
 });

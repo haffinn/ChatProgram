@@ -5,6 +5,17 @@
 <h3>Hi {{currentUser}} - Room {{currentRoom}}</h3>
 <div class="col-md-9">
 	TODO - display chat
+
+	<div ng-controller="RoomController">
+    		<input type="text" ng-model="message" />
+    		<button type="button" class="btn btn-primary" ng-click="submitMsg()">Submit</button>
+
+    		<ul>
+    			<li ng-repeat="message in messages">{{message.nick}} : {{message.message}} <!--: {{message.timestamp}}--></li>
+    		</ul>
+    		
+    </div>
+
 </div>
 <div class="col-md-3">
 	<h4>Users in this room</h4>
