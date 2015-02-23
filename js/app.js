@@ -1,5 +1,5 @@
 var ChatClient = angular.module('ChatClient', ['ngRoute']);
-
+ 
 ChatClient.config(
 	function ($routeProvider) {
 		$routeProvider
@@ -11,12 +11,12 @@ ChatClient.config(
 			});
 	}
 );
-
+ 
 ChatClient.controller('LoginController', function ($scope, $location, $rootScope, $routeParams, socket) {
 	
 	$scope.errorMessage = '';
 	$scope.nickname = '';
-
+ 
 	$scope.login = function() {			
 		if ($scope.nickname === '') {
 			$scope.errorMessage = 'Please choose a nick-name before continuing!';
@@ -31,24 +31,30 @@ ChatClient.controller('LoginController', function ($scope, $location, $rootScope
 		}
 	};
 });
-
+ 
 ChatClient.controller('RoomsController', function ($scope, $location, $rootScope, $routeParams, socket) {
 	// TODO: Query chat server for active rooms
 	$scope.rooms = ['Room 1','Room 2','Room 3','Room 4','Room 5'];
 	$scope.currentUser = $routeParams.user;
+	$scope.roomname = '';
+ 
+    $scope.newRoom = function() {
+        $scope.rooms.push($scope.roomname);
+    };
+ 
 });
-
+ 
 ChatClient.controller('RoomController', function ($scope, $location, $rootScope, $routeParams, socket) {
 	$scope.currentRoom = $routeParams.room;
 	$scope.currentUser = $routeParams.user;
 	$scope.currentUsers = [];
 	$scope.errorMessage = '';
-
+ 
 	socket.on('updateusers', function (roomName, users, ops) {
 		// TODO: Check if the roomName equals the current room !
 		$scope.currentUsers = users;
 	});		
-
+ 
 	socket.emit('joinroom', $scope.currentRoom, function (success, reason) {
 		if (!success)
 		{
