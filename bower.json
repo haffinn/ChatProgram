@@ -1,0 +1,14 @@
+{
+  "name": "ChatProgram",
+  "version": "0.0.0",
+  "homepage": "https://github.com/kotkarl/ChatProgram",
+  "authors": [
+    "kotkarl <kotkarl@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "angular": "~1.3.13",
+    "angular-route": "~1.3.13"
+  }
+}
