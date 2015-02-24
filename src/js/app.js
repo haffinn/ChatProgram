@@ -33,16 +33,25 @@ ChatClient.controller('LoginController', function ($scope, $location, $rootScope
 });
  
 ChatClient.controller('RoomsController', function ($scope, $location, $rootScope, $routeParams, socket) {
+	//TODO: Fá users online til að update-ast automatically
+	//TODO: Fá private message til að virka
 	$scope.rooms = [];
 	$scope.currentUser = $routeParams.user;
 	$scope.roomname = '';
 	$scope.message = '';
+	$scope.users = [];
 
-	//socket.emit('users');
+	socket.emit('users');
+	socket.on('userlist', function (userList) {
+		$scope.users = userList;
+	});
 
-	//socket.on('userlist', function (userList) {
-	//	$scope.currentUsers = userList;
-	//});
+// Var að reyna að gera þetta til að fá users online til að update-ast
+//	socket.on('updateusers', function (roomName, users, ops){ 
+//				console.log("users: ");
+//				console.log(users);
+//				$scope.users = users;
+//	});	
 
     $scope.newRoom = function() {
         $scope.rooms.push($scope.roomname);
