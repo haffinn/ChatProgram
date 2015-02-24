@@ -67,6 +67,10 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	$scope.message = '';
 	$scope.messages = [];
 
+	$scope.goBack = function() {
+		$location.path('/rooms/' + $scope.currentUser);
+	}
+
 	socket.emit('users');
 
 	socket.on('userlist', function (userList) {

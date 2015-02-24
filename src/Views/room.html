@@ -2,9 +2,12 @@
 	{{errorMessage}}
 </div>
 
-<h3>Hi {{currentUser}} - Room {{currentRoom}}</h3>
+<h3>Hi {{currentUser}} and welcome to {{currentRoom}} 
+	<button type="submit" class="btn btn-primary" ng-click="goBack()">Back to rooms</button>
+</h3> 
+
 <div class="col-md-9">
-	<div class="well">
+	<div class="well" id="chat-window">
 		<ul>
     		<li ng-repeat="message in messages">{{message.nick}} : {{message.message}} <!--: {{message.timestamp}}--></li>
     	</ul>
