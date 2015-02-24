@@ -86,7 +86,6 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 				$scope.currentUsers = users;
 			}
 		});	
-
 		// sockets.on('servermessage', function (message, room, username) {
 		// 	console.log("message: ");
 		// 	console.log(message);
@@ -95,30 +94,20 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 		// 	console.log("username: ");
 		// 	console.log(username);
 		// });
-
 		$location.path('/rooms/' + $scope.currentUser);
 	};
 
 	$scope.logout = function() {
+		socket.emit('partroom', $scope.currentRoom);
 		socket.emit('disconnect');
-		socket.on('updateusers', function (roomName, users, ops) {
-			if (roomName === $scope.currentRoom) {
-				$scope.currentUsers = users;
-			}
-		});
-
 		$location.path("/login");
 	};
 
-	// $scope.disconnect = function() {
-
-	// 	socket.emit('disconnect');
-	// 	$location.path("/login/");
-	// };
 
 	socket.on('updateusers', function (roomName, users, ops) {
 		if(roomName === $scope.currentRoom){
 			$scope.currentUsers = users;
+			$scope.$apply();
 		}
 	});		
  
@@ -137,10 +126,13 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
     };
 
     socket.on('updatechat', function (roomName, messageHistory) {
-				//pushes all current messages to the messages array to be displayed
-				//Hugsanlegt TODO: Passa að roomName passi
-    			$scope.messages = messageHistory;
-    		});
+		//pushes all current messages to the messages array to be displayed
+		//Hugsanlegt TODO: Passa að roomName passi
+		if ($scope.currentRoom === roomName) {
+			$scope.messages = messageHistory;
+			$scope.$apply();
+		}
+    });
 });
 
 
