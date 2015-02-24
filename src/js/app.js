@@ -66,28 +66,16 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 		}
 	});
 
-	console.log("above submitMsg");
 
 	 $scope.submitMsg = function() {			
-		if ($scope.message === '') {
-			$scope.errorMessage = 'Please enter a message before continuing!';
-		} else {
-			console.log("sendms reaches here")
-			socket.emit('sendmsg', {roomName: $scope.currentRoom, msg: $scope.message} );
-			
-			socket.on('updatechat', function(roomName, messageHistory) {
-				//pushes all current messages to the messages array to be displayed
-    			var msgArray = messageHistory;
-    			$scope.messages.splice(0, $scope.messages.length);
-    			for(var i = 0; i < msgArray.length; i++){
-    				console.log(msgArray[i]);
-    				$scope.messages.push(msgArray[i]);
-    			}
-    			document.getElementById('inputtext').value='';
-    		});
-    	}
-    	// document.getElementById('inputtext').value='';
+		socket.emit('sendmsg', {roomName: $scope.currentRoom, msg: $scope.message});
+		$scope.message = '';
     };
+
+    socket.on('updatechat', function (roomName, messageHistory) {
+				//pushes all current messages to the messages array to be displayed
+    			$scope.messages = messageHistory;
+    		});
 });
 
 
