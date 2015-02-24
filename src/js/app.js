@@ -68,38 +68,42 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	$scope.messages = [];
 
 	$scope.goBack = function() {
+
+		socket.emit('partroom', $scope.currentRoom);
+
+		socket.on('updateusers', function (roomName, users, ops) {
+			if(roomName === $scope.currentRoom){
+				$scope.currentUsers = users;
+			}
+		});	
+
+		// sockets.on('servermessage', function (message, room, username) {
+		// 	console.log("message: ");
+		// 	console.log(message);
+		// 	console.log("room: ");
+		// 	console.log(room);
+		// 	console.log("username: ");
+		// 	console.log(username);
+		// });
+
 		$location.path('/rooms/' + $scope.currentUser);
 	}
 
 	socket.emit('users');
 
 	socket.on('userlist', function (userList) {
-		console.log("userList: ");
-		console.log(userList);
 		$scope.currentUsers = userList;
 	});
 
-	console.log("currentUsers: ");
-	console.log($scope.currentUsers);
-
 	socket.on('updateusers', function (roomName, users, ops) {
 
-		console.log("updateusers running");
 		// TODO: Check if the roomName equals the current room !
-		console.log("roomName: " + roomName + ", current room: " + $scope.currentRoom);
 		if(roomName === $scope.currentRoom){
-			console.log("roomname equals currentroom");
 			$scope.currentUsers = users;
 		}
-		
-		console.log("currentUsers: ");
-		console.log($scope.currentUsers);
-		console.log("users: ");
-		console.log(users);
 	});		
  
 	socket.emit('joinroom', {room: $scope.currentRoom}, function (success, reason) {
-		console.log("joinroom running");
 		if (!success)
 		{
 			$scope.errorMessage = reason;
