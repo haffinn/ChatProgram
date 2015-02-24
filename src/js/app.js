@@ -33,11 +33,16 @@ ChatClient.controller('LoginController', function ($scope, $location, $rootScope
 });
  
 ChatClient.controller('RoomsController', function ($scope, $location, $rootScope, $routeParams, socket) {
-	// TODO: Query chat server for active rooms
 	$scope.rooms = [];
 	$scope.currentUser = $routeParams.user;
 	$scope.roomname = '';
 	$scope.message = '';
+
+	//socket.emit('users');
+
+	//socket.on('userlist', function (userList) {
+	//	$scope.currentUsers = userList;
+	//});
 
     $scope.newRoom = function() {
         $scope.rooms.push($scope.roomname);
@@ -111,23 +116,14 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	// 	$location.path("/login/");
 	// };
 
-	socket.emit('users');
-
-	socket.on('userlist', function (userList) {
-		$scope.currentUsers = userList;
-	});
-
 	socket.on('updateusers', function (roomName, users, ops) {
-
-		// TODO: Check if the roomName equals the current room !
 		if(roomName === $scope.currentRoom){
 			$scope.currentUsers = users;
 		}
 	});		
  
 	socket.emit('joinroom', {room: $scope.currentRoom}, function (success, reason) {
-		if (!success)
-		{
+		if (!success) {
 			$scope.errorMessage = reason;
 		}
 	});
