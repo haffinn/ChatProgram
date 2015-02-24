@@ -34,11 +34,16 @@ ChatClient.controller('LoginController', function ($scope, $location, $rootScope
  
 ChatClient.controller('RoomsController', function ($scope, $location, $rootScope, $routeParams, socket) {
 	// TODO: Query chat server for active rooms
-	$scope.rooms = ['Lobby'];
+	$scope.rooms = [];
 	$scope.currentUser = $routeParams.user;
 	$scope.roomname = '';
 	$scope.message = '';
- 
+
+	socket.emit('rooms');
+	socket.on('roomlist', function (rooms){
+		$scope.rooms = Object.keys(rooms);
+	});
+
     $scope.newRoom = function() {
         $scope.rooms.push($scope.roomname);
         document.getElementById('roomname').value='';
@@ -53,13 +58,36 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	$scope.errorMessage = '';
 	$scope.message = '';
 	$scope.messages = [];
- 
+
+	socket.emit('users');
+
+	socket.on('userlist', function (userList) {
+		console.log("userList: ");
+		console.log(userList);
+		$scope.currentUsers = userList;
+	});
+
+	console.log("currentUsers: ");
+	console.log($scope.currentUsers);
+
 	socket.on('updateusers', function (roomName, users, ops) {
+
+		console.log("updateusers running");
 		// TODO: Check if the roomName equals the current room !
-		$scope.currentUsers = users;
+		console.log("roomName: " + roomName + ", current room: " + $scope.currentRoom);
+		if(roomName === $scope.currentRoom){
+			console.log("roomname equals currentroom");
+			$scope.currentUsers = users;
+		}
+		
+		console.log("currentUsers: ");
+		console.log($scope.currentUsers);
+		console.log("users: ");
+		console.log(users);
 	});		
  
 	socket.emit('joinroom', {room: $scope.currentRoom}, function (success, reason) {
+		console.log("joinroom running");
 		if (!success)
 		{
 			$scope.errorMessage = reason;
