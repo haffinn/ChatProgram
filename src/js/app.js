@@ -68,7 +68,6 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 
 
 	 $scope.submitMsg = function() {
-	 	console.log("submitmsg: " + $scope.message);
 	 	if($scope.message !== ''){
 	 		socket.emit('sendmsg', {roomName: $scope.currentRoom, msg: $scope.message});
 			$scope.message = '';
