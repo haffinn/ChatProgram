@@ -56,6 +56,11 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 	socket.on('roomlist', function (rooms){
 		$scope.rooms = Object.keys(rooms);
 	});
+
+	$scope.logout = function() {
+		socket.emit('disconnect');
+		$location.path("/login");
+	};
  
 });
  
@@ -87,7 +92,24 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 		// });
 
 		$location.path('/rooms/' + $scope.currentUser);
-	}
+	};
+
+	$scope.logout = function() {
+		socket.emit('disconnect');
+		socket.on('updateusers', function (roomName, users, ops) {
+			if (roomName === $scope.currentRoom) {
+				$scope.currentUsers = users;
+			}
+		});
+
+		$location.path("/login");
+	};
+
+	// $scope.disconnect = function() {
+
+	// 	socket.emit('disconnect');
+	// 	$location.path("/login/");
+	// };
 
 	socket.emit('users');
 
