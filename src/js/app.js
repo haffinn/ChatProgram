@@ -34,10 +34,10 @@ ChatClient.controller('LoginController', function ($scope, $location, $rootScope
  
 ChatClient.controller('RoomsController', function ($scope, $location, $rootScope, $routeParams, socket) {
 	// TODO: Query chat server for active rooms
-	$scope.rooms = ['Room 1','Room 2','Room 3','Room 4','Room 5'];
+	$scope.rooms = ['Lobby'];
 	$scope.currentUser = $routeParams.user;
 	$scope.roomname = '';
-	$scope.message = "hello from roomscontroller";
+	$scope.message = '';
  
     $scope.newRoom = function() {
         $scope.rooms.push($scope.roomname);
@@ -67,13 +67,17 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	});
 
 
-	 $scope.submitMsg = function() {			
-		socket.emit('sendmsg', {roomName: $scope.currentRoom, msg: $scope.message});
-		$scope.message = '';
+	 $scope.submitMsg = function() {
+	 	console.log("submitmsg: " + $scope.message);
+	 	if($scope.message !== ''){
+	 		socket.emit('sendmsg', {roomName: $scope.currentRoom, msg: $scope.message});
+			$scope.message = '';
+	 	}			
     };
 
     socket.on('updatechat', function (roomName, messageHistory) {
 				//pushes all current messages to the messages array to be displayed
+				//Hugsanlegt TODO: Passa að roomName passi
     			$scope.messages = messageHistory;
     		});
 });
