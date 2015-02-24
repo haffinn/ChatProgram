@@ -39,15 +39,23 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 	$scope.roomname = '';
 	$scope.message = '';
 
-	socket.emit('rooms');
+    $scope.newRoom = function() {
+        $scope.rooms.push($scope.roomname);
+
+        socket.emit('joinroom', { room: $scope.roomname }, function(success, reason) {
+		    if (!success) {
+		        $scope.errorMessage = reason;
+		    }
+		    else {
+		        $location.path('/room/' + $scope.currentUser + '/' + $scope.roomname);
+		    }
+		});
+    };	
+
+    socket.emit('rooms');
 	socket.on('roomlist', function (rooms){
 		$scope.rooms = Object.keys(rooms);
 	});
-
-    $scope.newRoom = function() {
-        $scope.rooms.push($scope.roomname);
-        document.getElementById('roomname').value='';
-    };
  
 });
  
