@@ -3,26 +3,29 @@
 </div>
 
 <div class="wrapper">
-	<div class="box-around col-md-3 col-sm-12 pull-right rooms-list">
+
+	<div class="admin-tools box-around pull-left col-lg-12 col-md-12 col-sm-12">
+		<h3>Admin Tools:</h3>
+		<div class="admin-settings">
+			<label for="selUser">Select User</label>
+			<select ng-model="userToKickBanOp" name="selUser" class="select-admin-panel">
+				<option ng-repeat="user in currentUsers" ng-value="{{user}}">{{user}}</option>
+			</select>
+			<button ng-click="kickUser()" class="btn btn-primary">Kick User!</button>
+			<button ng-click="banUser()" class="btn btn-primary">Ban user</button>
+			<button ng-click="opUser()" class="btn btn-primary">Make Admin</button>
+		</div>
+	</div>
+
+	<div class="box-around col-lg-3 col-md-12 col-sm-12 pull-right rooms-list">
 		<h3>Users in this room</h3>
 		<ul>
 			<li ng-repeat="user in currentUsers">{{user}}</li>
 		</ul>
 		<hr>
-		<span class="admin-tools">
-			<h3>Admin Tools:</h3>
-			<label for="selUser">Select User</label>
-			<select ng-model="userToKickOrBan" name="selUser">
-				<option ng-repeat="user in currentUsers" ng-value="{{user}}">{{user}}</option>
-			</select>
-			<br />
-			<button ng-click="kickUser()" class="btn btn-primary">Kick User!</button>
-			<button ng-click="banUser()" class="btn btn-primary">Ban user</button>
-			<button ng-click="opUser()" class="btn btn-primary">Make Admin</button>
-		</span>
 	</div>
 
-	<div class="box-around chat-window col-md-8 col-sm-12 pull-left">
+	<div class="box-around chat-window col-lg-8 col-md-12 col-sm-12 pull-left rooms-list">
 		<h3>Hi {{currentUser}} and welcome to {{currentRoom}}
 			<button class="btn btn-danger pull-right" ng-click="discon()">Log out!</button>  
 			<button class="btn btn-primary pull-right" ng-click="goBack()">Back to rooms</button>

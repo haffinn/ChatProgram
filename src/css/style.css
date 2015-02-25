@@ -1,5 +1,18 @@
 /* css file */
 
+.select-admin-panle {
+	min-width: 100px;
+	margin-right: 10px;
+}
+
+.btn {
+	margin-right: 10px;
+}
+
+.admin-settings {
+	padding-bottom: 20px;
+}
+
 .rooms-window {
 	max-height: 500px;
 }
@@ -10,11 +23,11 @@
 }
 
 #prvt-chat-window {
-	max-height: 500px;
+	max-height: 400px;
 }
 
 .prvt-chat-content {
-	max-height: 400px;
+	max-height: 300px;
 	overflow: auto;
 }
 
@@ -44,11 +57,11 @@ h3, form {
 }
 
 .chat-window {
-	height: 500px;
+	height: 400px;
 }
 
 .chat-content {
-	height: 400px;
+	height: 300px;
    	overflow: auto;
 }
 
@@ -62,10 +75,9 @@ h3, form {
 
 .background-image {
 	position: absolute;
-	overflow: hidden;
-  	top: 0; 
+/*	overflow: hidden; */  	
+	top: 0; 
   	left: 0; 
-  	/* Preserve aspet ratio */
   	min-width: 100%;
   	min-height: 100%;
 
