@@ -1,1 +1,0 @@
-This is a chat room program, which allows users to sign in and chat with other users
