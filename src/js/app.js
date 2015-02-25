@@ -126,22 +126,23 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 		}
 	});
 
-
-	 $scope.submitMsg = function() {
-	 	if($scope.message !== ''){
-	 		socket.emit('sendmsg', {roomName: $scope.currentRoom, msg: $scope.message});
-			$scope.message = '';
-	 	}			
-    };
-
     socket.on('updatechat', function (roomName, messageHistory) {
 		//pushes all current messages to the messages array to be displayed
 		//Hugsanlegt TODO: Passa að roomName passi
 		if ($scope.currentRoom === roomName) {
 			$scope.messages = messageHistory;
-			//$scope.$apply();
+
+			var chat = $(".chat-content")[0].scrollHeight;
+			$(".chat-content").scrollTop(chat);
 		}
     });
+
+	$scope.submitMsg = function() {
+	 	if($scope.message !== ''){
+	 		socket.emit('sendmsg', {roomName: $scope.currentRoom, msg: $scope.message});
+			$scope.message = '';
+	 	}			
+    };
 });
 
 
