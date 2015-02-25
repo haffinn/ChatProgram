@@ -2,31 +2,28 @@
 	{{errorMessage}}
 </div>
  -->
+<div class="wrapper">
+	<div class="box-around col-lg-8 pull-left">
+		<h3>Hi {{currentUser}} - Active chat rooms
+			<button class="btn btn-danger pull-right" ng-click="discon()">Log out!</button>
+		</h3>
+		<form class="input-group">
+			<input type="text" class="form-control" id="roomname" name="roomname" ng-model="roomname" placeholder="Name of room...">
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="submit" ng-click="newRoom()">Create a room</button>
+			</span>
+		</form>
 
-<div class="well col-lg-8 pull-left">
-	<h3>Hi {{currentUser}} - Active chat rooms
-		<button class="btn btn-danger" ng-click="discon()">Log out!</button>
-	</h3>
-	<form class="input-group">
-		<input type="text" class="form-control" id="roomname" name="roomname" ng-model="roomname" placeholder="Name of room...">
-		<span class="input-group-btn">
-			<button class="btn btn-default" type="submit" ng-click="newRoom()">Create a room</button>
-		</span>
-	</form>
-
-	<br></br>
-
-	<ul ng-repeat="room in rooms">
-		<li><a href="#/room/{{currentUser}}/{{room}}">{{room}}</a></li>
-	</ul>
+		<ul ng-repeat="room in rooms" class="rooms-list">
+			<li><a href="#/room/{{currentUser}}/{{room}}">{{room}}</a></li>
+		</ul>
+	</div>
+		
+	<div class="box-around col-lg-3 pull-right rooms-list">
+		<h3>Users online</h3>
+		<ul>
+			<li ng-repeat="user in users">{{user}}</li>
+		</ul>
+	</div>
 </div>
-	
-<div class="well col-lg-3 pull-right">
-	<h3>Users online</h3>
-	<ul>
-		<li ng-repeat="user in users">{{user}}</li>
-	</ul>
-</div>
-
-	
  

@@ -158,8 +158,17 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 		//Hugsanlegt TODO: Passa að roomName passi
 		if ($scope.currentRoom === roomName) {
 			$scope.messages = messageHistory;
+			var chat = $(".chat-content")[0].scrollHeight;
+			$(".chat-content").scrollTop(chat);
 		}
     });
+
+	$scope.submitMsg = function() {
+	 	if($scope.message !== ''){
+	 		socket.emit('sendmsg', {roomName: $scope.currentRoom, msg: $scope.message});
+			$scope.message = '';
+	 	}			
+    };
 });
 
 
