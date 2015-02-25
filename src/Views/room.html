@@ -8,7 +8,7 @@
 		<h3>Admin Tools:</h3>
 		<div class="admin-settings">
 			<label for="selUser">Select User</label>
-			<select ng-model="userToKickOrBan" name="selUser" class="select-admin-panle">
+			<select ng-model="userToKickBanOp" name="selUser" class="select-admin-panel">
 				<option ng-repeat="user in currentUsers" ng-value="{{user}}">{{user}}</option>
 			</select>
 			<button ng-click="kickUser()" class="btn btn-primary">Kick User!</button>
