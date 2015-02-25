@@ -1,3 +1,5 @@
+/* css file */
+
 .rooms-list li {
 	list-style: none;
 	font-size: 12pt;
@@ -34,7 +36,8 @@ h3, form {
 }
 
 .background-image {
-	position: absolute; 
+	position: absolute;
+	overflow: hidden;
   	top: 0; 
   	left: 0; 
   	/* Preserve aspet ratio */
