@@ -117,7 +117,7 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	$scope.errorMessage = '';
 	$scope.message = '';
 	$scope.messages = [];
-	$scope.userToKickOrBan = '';
+	$scope.userToKickBanOp = '';
 
 	$scope.submitMsg = function() {
 		if($scope.message !== ''){
@@ -139,7 +139,7 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	};
 
 	$scope.kickUser = function() {
-		socket.emit('kick', {user: $scope.userToKickOrBan, room: $scope.currentRoom }, function (success) {
+		socket.emit('kick', {user: $scope.userToKickBanOp, room: $scope.currentRoom }, function (success) {
 			if (success) {
 				// Show success message
 				console.log("Succeccfully kicked user");
@@ -147,19 +147,23 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 				// show fail message
 				console.log("Failed to kcik user");
 			}
-			$scope.userToKickOrBan = '';
+			$scope.userToKickBanOp = '';
 		});
 	};
 
 	$scope.banUser = function() {
-		socket.emit('ban', {user: $scope.userToKickOrBan, room: $scope.currentRoom}, function (success) {
+		socket.emit('ban', {user: $scope.userToKickBanOp, room: $scope.currentRoom}, function (success) {
 			if (success) {
 				console.log("Successfully banned user");
 			} else {
 				console.log("Failed to ban user");
 			}
-			$scope.userToKickOrBan = '';
+			$scope.userToKickBanOp = '';
 		});
+	};
+
+	$scope.opUser = function() {
+		// DO stuff
 	};
 
 	socket.on('kicked', function (room, user) {
