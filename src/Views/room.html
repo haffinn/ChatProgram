@@ -13,7 +13,7 @@
 	<div class="box-around chat-window col-md-8 col-sm-12 pull-left">
 		<h3>Hi {{currentUser}} and welcome to {{currentRoom}}
 			<button class="btn btn-danger pull-right" ng-click="discon()">Log out!</button>  
-			<button class="btn btn-primary pull-right" ng-click="goBack()">Leave room</button>
+			<button class="btn btn-primary pull-right" ng-click="goBack()">Back to rooms</button>
 		</h3> 
 		<ul class="chat-content">
     		<li ng-repeat="message in messages"><!--[{{message.timestamp}}]--> {{message.nick}} : {{message.message}}</li>
@@ -31,7 +31,7 @@
 		<br />
 		<div>
 			<form ng-submit="kickUser()">
-	    		<input id="userkick" type="text" ng-model="userToKick" />
+	    		<input id="userkick" type="text" ng-model="userToKickOrBan" />
 	    		<button type="submit" class="btn btn-primary">Kick User!</button>	
 	    	</form>
 		</div>
