@@ -91,6 +91,13 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	$scope.message = '';
 	$scope.messages = [];
 
+	$scope.submitMsg = function() {
+		if($scope.message !== ''){
+	 		socket.emit('sendmsg', {roomName: $scope.currentRoom, msg: $scope.message});
+			$scope.message = '';
+		}			
+	};
+
 	$scope.goBack = function() {
 
 		socket.emit('partroom', $scope.currentRoom);
@@ -103,7 +110,27 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 		$location.path("/login");
 	};
 
+	$scope.kickUser = function(userToKick) {
+		socket.emit("kick", {user: userToKick, room: $scope.roomName }, function (success) {
+			if (success) {
+				// Show success message
+			} else {
+				// show fail message
+			}
+		})
+	};
 
+	$scope.banUser = function() {
+
+	};
+
+	socket.on('kicked', function (room, ifMe) {
+		// Do stuff
+	});
+
+	socket.on('banned', function (room, ifMe) {
+		// do stuff
+	});
 
 	socket.on('updateusers', function (roomName, users, ops) {
 		if(roomName === $scope.currentRoom){
@@ -125,14 +152,6 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 			$scope.errorMessage = reason;
 		}
 	});
-
-
-	 $scope.submitMsg = function() {
-	 	if($scope.message !== ''){
-	 		socket.emit('sendmsg', {roomName: $scope.currentRoom, msg: $scope.message});
-			$scope.message = '';
-	 	}			
-    };
 
     socket.on('updatechat', function (roomName, messageHistory) {
 		//pushes all current messages to the messages array to be displayed

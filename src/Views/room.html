@@ -30,3 +30,15 @@
 		</ul>
 	</div>
 </div>
+
+<div class="col-md-5 admin-panel">
+	<br />
+	<div>
+		<form ng-submit="kickUser()">
+    		<input id="userkick" type="text" ng-model="userToKick" />
+    		<button type="submit" class="btn btn-primary">Kick User!</button>	
+    	</form>
+	</div>
+	<button class="btn btn-primary" ng-click="kickUser()">Kick user</button>
+	<button class="btn btn-primary" ng-click="banUser()">Ban user</button>
+</div>
