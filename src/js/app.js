@@ -81,9 +81,12 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 //	});	
 
     $scope.newRoom = function() {
-        $scope.rooms.push($scope.roomname);
+    	if ($scope.roomname === '') {
+			$scope.errorMessage = 'Please enter a name for the new room';
+		} else {
+			$scope.rooms.push($scope.roomname);
 
-        socket.emit('joinroom', { room: $scope.roomname }, function(success, reason) {
+        	socket.emit('joinroom', { room: $scope.roomname }, function(success, reason) {
 		    if (!success) {
 		        $scope.errorMessage = reason;
 		    }
@@ -91,6 +94,7 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 		        $location.path('/room/' + $scope.currentUser + '/' + $scope.roomname);
 		    }
 		});
+		}
     };	
 
     socket.emit('rooms');
@@ -109,27 +113,21 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	$scope.currentRoom = $routeParams.room;
 	$scope.currentUser = $routeParams.user;
 	$scope.currentUsers = [];
+	$scope.opperators = [];
 	$scope.errorMessage = '';
 	$scope.message = '';
 	$scope.messages = [];
 
+	$scope.submitMsg = function() {
+		if($scope.message !== ''){
+	 		socket.emit('sendmsg', {roomName: $scope.currentRoom, msg: $scope.message});
+			$scope.message = '';
+		}			
+	};
+
 	$scope.goBack = function() {
 
 		socket.emit('partroom', $scope.currentRoom);
-
-		socket.on('updateusers', function (roomName, users, ops) {
-			if(roomName === $scope.currentRoom){
-				$scope.currentUsers = users;
-			}
-		});	
-		// sockets.on('servermessage', function (message, room, username) {
-		// 	console.log("message: ");
-		// 	console.log(message);
-		// 	console.log("room: ");
-		// 	console.log(room);
-		// 	console.log("username: ");
-		// 	console.log(username);
-		// });
 		$location.path('/rooms/' + $scope.currentUser);
 	};
 
@@ -139,11 +137,40 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 		$location.path("/login");
 	};
 
+	$scope.kickUser = function(userToKick) {
+		socket.emit("kick", {user: userToKick, room: $scope.roomName }, function (success) {
+			if (success) {
+				// Show success message
+			} else {
+				// show fail message
+			}
+		})
+	};
+
+	$scope.banUser = function() {
+
+	};
+
+	socket.on('kicked', function (room, ifMe) {
+		// Do stuff
+	});
+
+	socket.on('banned', function (room, ifMe) {
+		// do stuff
+	});
 
 	socket.on('updateusers', function (roomName, users, ops) {
 		if(roomName === $scope.currentRoom){
+			console.log("opperators:");
+
+			var oplist = [];
+			for(var op in ops) {
+				oplist.push(op);
+			}
+			console.log(oplist);
+			
 			$scope.currentUsers = users;
-			//$scope.$apply();
+			$scope.opperators = ops;
 		}
 	});		
  
@@ -153,22 +180,22 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 		}
 	});
 
-
-	 $scope.submitMsg = function() {
-	 	if($scope.message !== ''){
-	 		socket.emit('sendmsg', {roomName: $scope.currentRoom, msg: $scope.message});
-			$scope.message = '';
-	 	}			
-    };
-
     socket.on('updatechat', function (roomName, messageHistory) {
 		//pushes all current messages to the messages array to be displayed
 		//Hugsanlegt TODO: Passa að roomName passi
 		if ($scope.currentRoom === roomName) {
 			$scope.messages = messageHistory;
-			//$scope.$apply();
+			var chat = $(".chat-content")[0].scrollHeight;
+			$(".chat-content").scrollTop(chat);
 		}
     });
+
+	$scope.submitMsg = function() {
+	 	if($scope.message !== ''){
+	 		socket.emit('sendmsg', {roomName: $scope.currentRoom, msg: $scope.message});
+			$scope.message = '';
+	 	}			
+    };
 });
 
 

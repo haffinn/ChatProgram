@@ -2,48 +2,47 @@
 	{{errorMessage}}
 </div>
  -->
-
-<div class="well col-lg-8 pull-left">
-	<h3>Hi {{currentUser}} - Active chat rooms
-		<button class="btn btn-danger" ng-click="discon()">Log out!</button>
-	</h3>
-	<form class="input-group">
-		<input type="text" class="form-control" id="roomname" name="roomname" ng-model="roomname" placeholder="Name of room...">
-		<span class="input-group-btn">
-			<button class="btn btn-default" type="submit" ng-click="newRoom()">Create a room</button>
-		</span>
-	</form>
-
-	<br></br>
-
-	<ul ng-repeat="room in rooms">
-		<li><a href="#/room/{{currentUser}}/{{room}}">{{room}}</a></li>
-	</ul>
-</div>
-	
-<div class="well col-lg-3 pull-right">
-	<h3>Users online</h3>
-	<ul>
-		<li ng-repeat="user in users">{{user}}</li>
-	</ul>
-</div>
-
-<div class="col-md-3 pull-right">
-	<select ng-model="prvtMessageTo">
-	  <option ng-repeat="user in users" ng-value="{{user}}">{{user}}</option>
-	</select>
-	<div class="well" id="prvt-chat-window">
-		<ul>
-    		<li ng-repeat="prvtMessage in prvtMessages">{{prvtMessage.nick}} : {{prvtMessage.message}} : {{prvtMessage.timestamp}}</li>
-    	</ul>
-	</div>
-	<div>
-		<form ng-submit="submitPrvtMsg()">
-			<input id="inputtext" type="text" ng-model="prvtMessage" />
-			<button type="submit" class="btn btn-primary">Send</button>	
+<div class="wrapper">
+	<div class="box-around col-lg-8 pull-left">
+		<h3>Hi {{currentUser}} - Active chat rooms
+			<button class="btn btn-danger pull-right" ng-click="discon()">Log out!</button>
+		</h3>
+		<form class="input-group">
+			<input type="text" class="form-control" id="roomname" name="roomname" ng-model="roomname" placeholder="Name of room...">
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="submit" ng-click="newRoom()">Create a room</button>
+			</span>
 		</form>
+
+		<ul ng-repeat="room in rooms" class="rooms-list">
+			<li><a href="#/room/{{currentUser}}/{{room}}">{{room}}</a></li>
+		</ul>
+	</div>
+		
+	<div class="box-around col-lg-3 pull-right rooms-list">
+		<h3>Users online</h3>
+		<ul>
+			<li ng-repeat="user in users">{{user}}</li>
+		</ul>
+	</div>
+
+
+	<div class="well col-md-3 pull-right">
+		<select ng-model="prvtMessageTo">
+			<option ng-repeat="user in users" ng-value="{{user}}">{{user}}</option>
+		</select>
+		<div id="prvt-chat-window">
+			<ul>
+	    		<li ng-repeat="prvtMessage in prvtMessages">{{prvtMessage.nick}} : {{prvtMessage.message}} : {{prvtMessage.timestamp}}</li>
+	    	</ul>
+		</div>
+		<div>
+			<form ng-submit="submitPrvtMsg()">
+				<input id="inputtext" type="text" ng-model="prvtMessage" />
+				<button type="submit" class="btn btn-primary">Send</button>	
+			</form>
+		</div>
 	</div>
 </div>
 
-	
  

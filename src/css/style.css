@@ -1,0 +1,52 @@
+.rooms-list li {
+	list-style: none;
+	font-size: 12pt;
+}
+
+h3, form {
+	padding-bottom: 20px;
+}
+
+.wrapper {
+	padding-top: 80px;
+}
+
+.box-around {
+	background-color: rgba(255, 255, 255, 0.85);
+	border-radius: 5px;
+}
+
+.chat-window {
+	height: 500px;
+}
+
+.chat-content {
+	height: 400px;
+   	overflow:auto;
+}
+
+.login-login {
+	height:50px;
+}
+
+.vertical-center {
+	padding-top: 80%;
+}
+
+.background-image {
+	position: absolute; 
+  	top: 0; 
+  	left: 0; 
+  	/* Preserve aspet ratio */
+  	min-width: 100%;
+  	min-height: 100%;
+
+}
+
+.well {
+	min-height: 80%;
+}
+
+img {
+	height: 40px;
+}
