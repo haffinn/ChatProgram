@@ -41,6 +41,33 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 	$scope.message = '';
 	$scope.users = [];
 
+	//prvt messages
+	$scope.prvtMessages = [];
+	$scope.prvtMessage = '';
+	$scope.prvtMessageTo = '';
+
+	$scope.submitPrvtMsg = function() {
+	 	if($scope.prvtMessage !== ''){
+	 		socket.emit('privatemsg', {nick: $scope.prvtMessageTo, message: $scope.prvtMessage, from: $scope.currentUser}, function (available) {
+				if (available) {
+					$scope.prvtMessages.push({nick: $scope.currentUser, message: $scope.prvtMessage});
+					$scope.prvtMessage = '';
+				} else {
+					$scope.errorMessage = 'This user does not exist!';
+				}
+			});		
+			
+	 	}			
+    };
+
+    socket.on('recv_privatemsg', function(sender, msgReceived){
+    	$scope.prvtMessages.push({nick: sender, message: msgReceived});
+    	console.log("You got a message from:");
+    	console.log(sender);
+    	console.log("msg: ");
+    	console.log(msgReceived);
+    });
+
 	socket.emit('users');
 	socket.on('userlist', function (userList) {
 		$scope.users = userList;

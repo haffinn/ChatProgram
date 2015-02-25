@@ -3,14 +3,14 @@
 </div>
 
 <div class="wrapper">
-	<div class="box-around col-lg-3 pull-right rooms-list">
+	<div class="box-around col-md-3 col-sm-12 pull-right rooms-list">
 		<h3>Users in this room</h3>
 		<ul>
 			<li ng-repeat="user in currentUsers">{{user}}</li>
 		</ul>
 	</div>
 
-	<div class="box-around chat-window col-md-8 pull-left">
+	<div class="box-around chat-window col-md-8 col-sm-12 pull-left">
 		<h3>Hi {{currentUser}} and welcome to {{currentRoom}}
 			<button class="btn btn-danger pull-right" ng-click="discon()">Log out!</button>  
 			<button class="btn btn-primary pull-right" ng-click="goBack()">Back to rooms</button>
@@ -20,10 +20,10 @@
     	</ul>
 	</div>
 
-	<form class="input-group pull-left col-md-8 pull-left" ng-submit="submitMsg()" style="padding-top:10px;">
-		<input autofocus id="inputtext" class="form-control" type="text" ng-model="message" placeholder="Write a message..." style="height:40px; background-color:rgba(255, 255, 255, 0.85);"/>
+	<form class="input-group pull-left col-md-8 col-sm-12" ng-submit="submitMsg()" style="padding-top:10px;">
+		<input id="inputtext" class="form-control" type="text" ng-model="message" placeholder="Write a message..." style="height:40px; background-color:rgba(255, 255, 255, 0.85);" autofocus/>
 		<span class="input-group-btn">
-			<button type="submit" class="btn btn-default" style="height:40px; background-color:rgba(255, 255, 255, 0.85); color:#585858;">Submit</button>
+			<button type="submit" class="btn btn-default" style="height:40px; background-color:rgba(255, 255, 255, 0.85); color:#585858;">Send</button>
 		</span>	
 	</form>
 
