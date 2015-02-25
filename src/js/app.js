@@ -71,7 +71,7 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 		$scope.rooms = Object.keys(rooms);
 	});
 
-	$scope.logout = function() {
+	$scope.disconnect = function() {
 		socket.emit('disconnect');
 		$location.path("/login");
 	};
@@ -106,9 +106,9 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 		$location.path('/rooms/' + $scope.currentUser);
 	};
 
-	$scope.logout = function() {
-		socket.emit('partroom', $scope.currentRoom);
-		socket.emit('disconnect');
+	$scope.disconnect = function() {
+		//socket.emit('partroom', $scope.currentRoom);
+		socket.emit('logout');
 		$location.path("/login");
 	};
 
