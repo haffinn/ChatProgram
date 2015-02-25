@@ -13,10 +13,11 @@
 				<button class="btn btn-default" type="submit" ng-click="newRoom()">Create a room</button>
 			</span>
 		</form>
-
-		<ul ng-repeat="room in rooms" class="rooms-list">
-			<li><a href="#/room/{{currentUser}}/{{room}}">{{room}}</a></li>
-		</ul>
+		<div class="rooms-window">
+			<ul class="rooms-list rooms-content">
+				<li ng-repeat="room in rooms"><a href="#/room/{{currentUser}}/{{room}}">{{room}}</a></li>
+			</ul>
+		</div>
 	</div>
 		
 <!-- 	<div class="box-around col-lg-3 pull-right rooms-list">
@@ -26,7 +27,7 @@
 		</ul>
 	</div> -->
 
-	<div class="box-around col-md-3 pull-right">
+	<div class="box-around col-lg-3 col-md-12 pull-right">
 		<h3>Private message</h3>
 		<div>
 			<form ng-submit="submitPrvtMsg()" class="input-group">
@@ -36,13 +37,15 @@
 				</span>
 			</form>
 		</div>
-		<select ng-model="prvtMessageTo">
+		<select class="select-style" ng-model="prvtMessageTo">
 			<option ng-repeat="user in users" ng-value="{{user}}">{{user}}</option>
 		</select>
 
+		<hr></hr>
+
 		<div id="prvt-chat-window">
-			<ul>
-	    		<li ng-repeat="prvtMessage in prvtMessages">{{prvtMessage.nick}} : {{prvtMessage.message}} : {{prvtMessage.timestamp}}</li>
+			<ul class="rooms-list prvt-chat-content">
+	    		<li ng-repeat="prvtMessage in prvtMessages">{{prvtMessage.nick}} : {{prvtMessage.message}} <!--: {{prvtMessage.timestamp}}--></li>
 	    	</ul>
 		</div>
 	</div>

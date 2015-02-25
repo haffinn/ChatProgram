@@ -1,5 +1,23 @@
 /* css file */
 
+.rooms-window {
+	max-height: 500px;
+}
+
+.rooms-content {
+	max-height: 400px;
+	overflow: auto;
+}
+
+#prvt-chat-window {
+	max-height: 500px;
+}
+
+.prvt-chat-content {
+	max-height: 400px;
+	overflow: auto;
+}
+
 .select-style {
 	border-radius: 5px;
 	padding: 5px;
@@ -22,6 +40,7 @@ h3, form {
 .box-around {
 	background-color: rgba(255, 255, 255, 0.85);
 	border-radius: 5px;
+	margin-bottom: 20px;
 }
 
 .chat-window {
@@ -30,7 +49,7 @@ h3, form {
 
 .chat-content {
 	height: 400px;
-   	overflow:auto;
+   	overflow: auto;
 }
 
 .login-login {
