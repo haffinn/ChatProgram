@@ -19,28 +19,31 @@
 		</ul>
 	</div>
 		
-	<div class="box-around col-lg-3 pull-right rooms-list">
+<!-- 	<div class="box-around col-lg-3 pull-right rooms-list">
 		<h3>Users online</h3>
 		<ul>
 			<li ng-repeat="user in users">{{user}}</li>
 		</ul>
-	</div>
+	</div> -->
 
-
-	<div class="well col-md-3 pull-right">
+	<div class="box-around col-md-3 pull-right">
+		<h3>Private message</h3>
+		<div>
+			<form ng-submit="submitPrvtMsg()" class="input-group">
+				<input id="inputtext" type="text" ng-model="prvtMessage" class="form-control" />
+				<span class="input-group-btn">
+					<button type="submit" class="btn btn-default">Send</button>	
+				</span>
+			</form>
+		</div>
 		<select ng-model="prvtMessageTo">
 			<option ng-repeat="user in users" ng-value="{{user}}">{{user}}</option>
 		</select>
+
 		<div id="prvt-chat-window">
 			<ul>
 	    		<li ng-repeat="prvtMessage in prvtMessages">{{prvtMessage.nick}} : {{prvtMessage.message}} : {{prvtMessage.timestamp}}</li>
 	    	</ul>
-		</div>
-		<div>
-			<form ng-submit="submitPrvtMsg()">
-				<input id="inputtext" type="text" ng-model="prvtMessage" />
-				<button type="submit" class="btn btn-primary">Send</button>	
-			</form>
 		</div>
 	</div>
 </div>
