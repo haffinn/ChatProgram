@@ -1,8 +1,10 @@
-<div class="alert alert-danger" ng-cloak ng-show="errorMessage != ''">
-	{{errorMessage}}
-</div>
-
 <div class="wrapper">
+	<div class="alert alert-danger col-lg-8 pull-left" ng-cloak ng-show="errorMessage != ''">
+		{{errorMessage}}
+	</div>
+	<div class="alert alert-success col-lg-8 pull-left" ng-cloak ng-show="successMessage != ''">
+		{{successMessage}}
+	</div>
 
 	<div class="admin-tools box-around pull-left col-lg-12 col-md-12 col-sm-12">
 		<h3>Admin Tools:</h3>
