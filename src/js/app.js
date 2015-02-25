@@ -71,8 +71,8 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 		$scope.rooms = Object.keys(rooms);
 	});
 
-	$scope.disconnect = function() {
-		socket.emit('disconnect');
+	$scope.discon = function() {
+		socket.emit('logout');
 		$location.path("/login");
 	};
  
@@ -106,7 +106,7 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 		$location.path('/rooms/' + $scope.currentUser);
 	};
 
-	$scope.disconnect = function() {
+	$scope.discon = function() {
 		//socket.emit('partroom', $scope.currentRoom);
 		socket.emit('logout');
 		$location.path("/login");
@@ -116,7 +116,7 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	socket.on('updateusers', function (roomName, users, ops) {
 		if(roomName === $scope.currentRoom){
 			$scope.currentUsers = users;
-			$scope.$apply();
+			//$scope.$apply();
 		}
 	});		
  
@@ -139,7 +139,7 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 		//Hugsanlegt TODO: Passa að roomName passi
 		if ($scope.currentRoom === roomName) {
 			$scope.messages = messageHistory;
-			$scope.$apply();
+			//$scope.$apply();
 		}
     });
 });
