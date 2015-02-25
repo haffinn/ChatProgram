@@ -28,5 +28,22 @@
 	</ul>
 </div>
 
+<div class="col-md-3 pull-right">
+	<select ng-model="prvtMessageTo">
+	  <option ng-repeat="user in users" ng-value="{{user}}">{{user}}</option>
+	</select>
+	<div class="well" id="prvt-chat-window">
+		<ul>
+    		<li ng-repeat="prvtMessage in prvtMessages">{{prvtMessage.nick}} : {{prvtMessage.message}} : {{prvtMessage.timestamp}}</li>
+    	</ul>
+	</div>
+	<div>
+		<form ng-submit="submitPrvtMsg()">
+			<input id="inputtext" type="text" ng-model="prvtMessage" />
+			<button type="submit" class="btn btn-primary">Send</button>	
+		</form>
+	</div>
+</div>
+
 	
  
