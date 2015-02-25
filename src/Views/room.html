@@ -4,7 +4,7 @@
 
 <div class="wrapper">
 
-	<div class="admin-tools box-around pull-left col-lg-12">
+	<div class="admin-tools box-around pull-left col-lg-12 col-md-12 col-sm-12">
 		<h3>Admin Tools:</h3>
 		<div class="admin-settings">
 			<label for="selUser">Select User</label>
@@ -17,7 +17,7 @@
 		</div>
 	</div>
 
-	<div class="box-around col-md-3 col-sm-12 pull-right rooms-list">
+	<div class="box-around col-lg-3 col-md-12 col-sm-12 pull-right rooms-list">
 		<h3>Users in this room</h3>
 		<ul>
 			<li ng-repeat="user in currentUsers">{{user}}</li>
@@ -25,7 +25,7 @@
 		<hr>
 	</div>
 
-	<div class="box-around chat-window col-md-8 col-sm-12 pull-left rooms-list">
+	<div class="box-around chat-window col-lg-8 col-md-12 col-sm-12 pull-left rooms-list">
 		<h3>Hi {{currentUser}} and welcome to {{currentRoom}}
 			<button class="btn btn-danger pull-right" ng-click="discon()">Log out!</button>  
 			<button class="btn btn-primary pull-right" ng-click="goBack()">Back to rooms</button>
