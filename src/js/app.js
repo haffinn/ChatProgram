@@ -54,9 +54,12 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 //	});	
 
     $scope.newRoom = function() {
-        $scope.rooms.push($scope.roomname);
+    	if ($scope.roomname === '') {
+			$scope.errorMessage = 'Please enter a name for the new room';
+		} else {
+			$scope.rooms.push($scope.roomname);
 
-        socket.emit('joinroom', { room: $scope.roomname }, function(success, reason) {
+        	socket.emit('joinroom', { room: $scope.roomname }, function(success, reason) {
 		    if (!success) {
 		        $scope.errorMessage = reason;
 		    }
@@ -64,6 +67,7 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 		        $location.path('/room/' + $scope.currentUser + '/' + $scope.roomname);
 		    }
 		});
+		}
     };	
 
     socket.emit('rooms');
@@ -82,6 +86,7 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	$scope.currentRoom = $routeParams.room;
 	$scope.currentUser = $routeParams.user;
 	$scope.currentUsers = [];
+	$scope.opperators = [];
 	$scope.errorMessage = '';
 	$scope.message = '';
 	$scope.messages = [];
@@ -89,20 +94,6 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	$scope.goBack = function() {
 
 		socket.emit('partroom', $scope.currentRoom);
-
-		socket.on('updateusers', function (roomName, users, ops) {
-			if(roomName === $scope.currentRoom){
-				$scope.currentUsers = users;
-			}
-		});	
-		// sockets.on('servermessage', function (message, room, username) {
-		// 	console.log("message: ");
-		// 	console.log(message);
-		// 	console.log("room: ");
-		// 	console.log(room);
-		// 	console.log("username: ");
-		// 	console.log(username);
-		// });
 		$location.path('/rooms/' + $scope.currentUser);
 	};
 
@@ -113,10 +104,19 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	};
 
 
+
 	socket.on('updateusers', function (roomName, users, ops) {
 		if(roomName === $scope.currentRoom){
+			console.log("opperators:");
+
+			var oplist = [];
+			for(var op in ops) {
+				oplist.push(op);
+			}
+			console.log(oplist);
+			
 			$scope.currentUsers = users;
-			//$scope.$apply();
+			$scope.opperators = ops;
 		}
 	});		
  
@@ -139,7 +139,6 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 		//Hugsanlegt TODO: Passa að roomName passi
 		if ($scope.currentRoom === roomName) {
 			$scope.messages = messageHistory;
-			//$scope.$apply();
 		}
     });
 });
