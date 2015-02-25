@@ -52,6 +52,8 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 				if (available) {
 					$scope.prvtMessages.push({nick: $scope.currentUser, message: $scope.prvtMessage});
 					$scope.prvtMessage = '';
+					var chat = $(".prvt-chat-content")[0].scrollHeight;
+					$(".prvt-chat-content").scrollTop(chat);
 				} else {
 					$scope.errorMessage = 'This user does not exist!';
 				}
@@ -66,6 +68,8 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
     	console.log(sender);
     	console.log("msg: ");
     	console.log(msgReceived);
+    	var chat = $(".prvt-chat-content")[0].scrollHeight;
+			$(".prvt-chat-content").scrollTop(chat);
     });
 
 	socket.emit('users');
