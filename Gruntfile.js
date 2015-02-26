@@ -3,7 +3,7 @@ module.exports = function ( grunt ) {
 
    	pkg: grunt.file.readJSON('package.json'),
      jshint: {
-       src: ['build/app.min.js', '!chatserver.js', '!js/socket.io.min.js', '!js/socket-factory.js'],
+       src: ['src/js/allControllers.js', '!chatserver.js', '!js/socket.io.min.js', '!js/socket-factory.js'],
        gruntfile: ['Gruntfile.js'],
        options: {
         //reporter: require('jshint-stylish'),
@@ -17,14 +17,14 @@ module.exports = function ( grunt ) {
         node:   true,
         undef:  true,
         globals: {
-         _:       false,
-         jQuery:  false,
-         angular: false,
-         moment:  false,
-         console: false,
-         $:       false,
-         io:      false 
-         }
+        _:       false,
+        jQuery:  false,
+        angular: false,
+        moment:  false,
+        console: false,
+        $:       false,
+        io:      false 
+        }
       }
        	//build: ['Gruntfile.js', 'src/**/*.js']
      },
@@ -35,10 +35,11 @@ module.exports = function ( grunt ) {
         },
         build: {
           files: {
-            'build/app.min.js': ['src/js/app.js', 
-                                  'src/js/Controllers/loginController.js', 
-                                  'src/js/Controllers/roomsController.js',
-                                  'src/js/Controllers/roomController.js']
+            'build/app.min.js': 'src/js/allControllers.js'
+            //src/js/app.js', 
+                                  //'src/js/Controllers/loginController.js', 
+                                  //'src/js/Controllers/roomsController.js',
+                                  //'src/js/Controllers/roomController.js']
           }
         }
       },
