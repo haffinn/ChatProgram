@@ -140,6 +140,7 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	$scope.messages = [];
 	$scope.userToKickBanOp = '';
 	$scope.banList = [];
+	$scope.userToUnban = '';
 
 	$scope.submitMsg = function() {
 		if($scope.message !== ''){
@@ -178,26 +179,36 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	$scope.banUser = function() {
 		socket.emit('ban', {user: $scope.userToKickBanOp, room: $scope.currentRoom}, function (success) {
 			if (success) {
+
 				$scope.successMessage = 'Successfully banned user';
 				console.log("Successfully banned user: " + $scope.userToKickBanOp);
 			} else {
 				$scope.errorMessage = 'Failed to ban user';
 				console.log("Failed to ban user: " + $scope.userToKickBanOp);
 			}
-			//$scope.userToKickBanOp = '';
 		});
 	};
 
 	$scope.opUser = function() {
 		socket.emit('op', {user: $scope.userToKickBanOp, room: $scope.currentRoom}, function (success) {
 			if (success) {
-				$scope.successMessage = 'Successfully made' + $scope.userToKickBanOp + ' admin';
+				$scope.successMessage = 'Successfully made ' + $scope.userToKickBanOp + ' admin';
 				console.log("Successfully made " + $scope.userToKickBanOp + " admin");
 			} else {
 				$scope.errorMessage = 'Failed to make ' + $scope.userToKickBanOp + ' admin';
 				console.log("Failed to make " + $scope.userToKickBanOp + " admin");
 			}
 			//$scope.userToKickBanOp = '';
+		});
+	};
+
+	$scope.deOpUser = function() {
+		socket.emit('deop', {user: $scope.userToKickBanOp, room: $scope.currentRoom}, function (success) {
+			if (success) {
+				$scope.successMessage = 'Successfully revoked admin for ' + $scope.userToKickBanOp;
+			} else {
+				$scope.errorMessage = 'Failed to revoke admin for ' + $scope.userToKickBanOp;
+			}
 		});
 	};
 
