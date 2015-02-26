@@ -66,7 +66,7 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
     	console.log("Join a room called. Room requested is %" + roomCalled + "%");
     	socket.emit('joinroom', { room: roomCalled }, function(success, reason) {
 		    if (reason === "banned") {
-		    	$scope.errorMessage = 'Join failed - You are banned!'
+		    	$scope.errorMessage = 'Join failed - You are banned!';
 		    	//console.log("Join failed - You are banned!");
 		    }
 		    if (!success) {
