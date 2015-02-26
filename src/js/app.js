@@ -191,8 +191,10 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	$scope.opUser = function() {
 		socket.emit('op', {user: $scope.userToKickBanOp, room: $scope.currentRoom}, function (success) {
 			if (success) {
+				$scope.successMessage = 'Successfully made' + $scope.userToKickBanOp + ' admin';
 				console.log("Successfully made " + $scope.userToKickBanOp + " admin");
 			} else {
+				$scope.errorMessage = 'Failed to make ' + $scope.userToKickBanOp + ' admin';
 				console.log("Failed to make " + $scope.userToKickBanOp + " admin");
 			}
 			//$scope.userToKickBanOp = '';
@@ -203,11 +205,11 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 		if (user === $scope.currentUser) {
 			$location.path('/rooms/' + $scope.currentUser);
 			$scope.errorMessage = 'You have been kicked from ' + $scope.currentRoom;
-			//console.log("You have been kicked from " + $scope.currentRoom);
+			console.log("You have been kicked from " + $scope.currentRoom);
 		}
 		else if (room === $scope.currentRoom) {
 			$scope.successMessage = user + ' has been kicked from ' + room;
-			//console.log(user + " has been kicked from " + room);
+			console.log(user + " has been kicked from " + room);
 		}
 	});
 
@@ -215,11 +217,11 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 		if (user === $scope.currentUser) {
 			$location.path('/rooms/' + $scope.currentUser);
 			$scope.errorMessage = 'You have been banned from ' + $scope.currentRoom;
-			//console.log("You have been banned from " + $scope.currentRoom);
+			console.log("You have been banned from " + $scope.currentRoom);
 		}
 		else if (room === $scope.currentRoom) {
 			$scope.successMessage = user + ' has been banned from ' + room;
-			//console.log(user + " has been banned from " + room);
+			console.log(user + " has been banned from " + room);
 		}
 	});
 
