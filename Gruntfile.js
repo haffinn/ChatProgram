@@ -35,11 +35,10 @@ module.exports = function ( grunt ) {
         },
         build: {
           files: {
-            'build/app.min.js': 'src/js/allControllers.js'
-            //src/js/app.js', 
-                                  //'src/js/Controllers/loginController.js', 
-                                  //'src/js/Controllers/roomsController.js',
-                                  //'src/js/Controllers/roomController.js']
+            'build/app.min.js': ['src/js/app.js', 
+                                 'src/js/Controllers/loginController.js', 
+                                 'src/js/Controllers/roomsController.js',
+                                 'src/js/Controllers/roomController.js']
           }
         }
       },
