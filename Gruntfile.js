@@ -3,7 +3,7 @@ module.exports = function ( grunt ) {
 
    	pkg: grunt.file.readJSON('package.json'),
      jshint: {
-       src: ['src/js/app.js', '!chatserver.js', '!js/socket.io.min.js', '!js/socket-factory.js'],
+       src: ['build/app.min.js', '!chatserver.js', '!js/socket.io.min.js', '!js/socket-factory.js'],
        gruntfile: ['Gruntfile.js'],
        options: {
         //reporter: require('jshint-stylish'),

@@ -13,7 +13,7 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 	$scope.prvtMessageTo = '';
 
 	$scope.submitPrvtMsg = function() {
-	 	if($scope.prvtMessage !== ''){
+	 	if($scope.prvtMessage !== '') {
 	 		socket.emit('privatemsg', {nick: $scope.prvtMessageTo, message: $scope.prvtMessage, from: $scope.currentUser}, function (available) {
 				if (available) {
 					$scope.prvtMessages.push({nick: $scope.currentUser, message: $scope.prvtMessage});
@@ -26,6 +26,23 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 			});		
 			
 	 	}			
+    };
+
+    $scope.joinARoom = function(roomCalled) {
+    	console.log("Join a room called. Room requested is %" + roomCalled + "%");
+    	socket.emit('joinroom', { room: roomCalled }, function(success, reason) {
+		    if (reason === "banned") {
+		    	$scope.errorMessage = 'Join failed - You are banned!';
+		    	console.log("Join failed - You are banned!");
+		    }
+		    if (!success) {
+		        $scope.errorMessage = reason;
+		        console.log(reason);
+		    }
+		    else {
+		        $location.path('/room/' + $scope.currentUser + '/' + roomCalled);
+		    }
+		});
     };
 
     socket.on('recv_privatemsg', function(sender, msgReceived){
@@ -43,7 +60,14 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 		$scope.users = userList;
 	});
 
-	$scope.newRoom = function() {
+// Var að reyna að gera þetta til að fá users online til að update-ast
+//	socket.on('updateusers', function (roomName, users, ops){ 
+//				console.log("users: ");
+//				console.log(users);
+//				$scope.users = users;
+//	});	
+
+    $scope.newRoom = function() {
     	if ($scope.roomname === '') {
 			$scope.errorMessage = 'Please enter a name for the new room';
 		} else {
@@ -71,3 +95,4 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 	};
  
 });
+ 
