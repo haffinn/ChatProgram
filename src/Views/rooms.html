@@ -15,7 +15,8 @@
 		</form>
 		<div class="rooms-window">
 			<ul class="rooms-list rooms-content">
-				<li ng-repeat="room in rooms"><a href="#/room/{{currentUser}}/{{room}}">{{room}}</a></li>
+				<!-- <li ng-repeat="room in rooms"><a href="#/room/{{currentUser}}/{{room}}">{{room}}</a></li> -->
+				<li ng-repeat="room in rooms"><a href ng-click="joinARoom(room)">{{room}}</a></li>
 			</ul>
 		</div>
 	</div>
