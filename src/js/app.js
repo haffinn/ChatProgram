@@ -47,7 +47,7 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 	$scope.prvtMessageTo = '';
 
 	$scope.submitPrvtMsg = function() {
-	 	if($scope.prvtMessage !== ''){
+	 	if($scope.prvtMessage !== '') {
 	 		socket.emit('privatemsg', {nick: $scope.prvtMessageTo, message: $scope.prvtMessage, from: $scope.currentUser}, function (available) {
 				if (available) {
 					$scope.prvtMessages.push({nick: $scope.currentUser, message: $scope.prvtMessage});
@@ -125,7 +125,7 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	$scope.userToKickBanOp = '';
 
 	$scope.submitMsg = function() {
-		if($scope.message !== ''){
+		if($scope.message !== '') {
 	 		socket.emit('sendmsg', {roomName: $scope.currentRoom, msg: $scope.message});
 			$scope.message = '';
 		}			
@@ -209,7 +209,7 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	});
 
 	socket.on('updateusers', function (roomName, users, ops) {
-		if(roomName === $scope.currentRoom){
+		if(roomName === $scope.currentRoom) {
 			console.log("opperators:");
 
 			var oplist = [];
@@ -240,7 +240,7 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
     });
 
 	$scope.submitMsg = function() {
-	 	if($scope.message !== ''){
+	 	if($scope.message !== '') {
 	 		socket.emit('sendmsg', {roomName: $scope.currentRoom, msg: $scope.message});
 			$scope.message = '';
 	 	}			
