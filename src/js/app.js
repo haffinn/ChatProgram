@@ -62,6 +62,22 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 	 	}			
     };
 
+    $scope.joinARoom = function(roomCalled) {
+    	console.log("Join a room called. Room requested is %" + roomCalled + "%");
+    	socket.emit('joinroom', { room: roomCalled }, function(success, reason) {
+		    if (reason === "banned") {
+		    	console.log("Join failed - You are banned!");
+		    }
+		    if (!success) {
+		        $scope.errorMessage = reason;
+		        console.log(reason);
+		    }
+		    else {
+		        $location.path('/room/' + $scope.currentUser + '/' + roomCalled);
+		    }
+		});
+    };
+
     socket.on('recv_privatemsg', function(sender, msgReceived){
     	$scope.prvtMessages.push({nick: sender, message: msgReceived});
     	console.log("You got a message from:");
@@ -123,6 +139,7 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	$scope.message = '';
 	$scope.messages = [];
 	$scope.userToKickBanOp = '';
+	$scope.banList = [];
 
 	$scope.submitMsg = function() {
 		if($scope.message !== '') {
@@ -211,7 +228,7 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	socket.on('updateusers', function (roomName, users, ops) {
 		if(roomName === $scope.currentRoom) {
 			console.log("opperators:");
-
+			// console log test:
 			var oplist = [];
 			for(var op in ops) {
 				oplist.push(op);
