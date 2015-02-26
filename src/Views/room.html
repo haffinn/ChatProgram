@@ -18,6 +18,13 @@
 			<button ng-click="banUser()" class="btn btn-primary">Ban user</button>
 			<button ng-click="opUser()" class="btn btn-primary">Make Admin</button>
 			<button ng-click="deOpUser()" class="btn btn-primary">Revoke Admin</button>
+
+			<form class="input-group">
+				<input type="text" class="form-control" ng-model="userToUnban" placeholder="User to unban...">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="submit" ng-click="unBanUser()">Unban!</button>
+				</span>
+			</form>
 		</div>
 		<!-- <div>
 			<select ng-model="userToUnban" name="unban" class="select-admin-panel">
