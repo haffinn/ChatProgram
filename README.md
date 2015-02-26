@@ -17,3 +17,10 @@ runclient.bat
 node chatserver.js
 
 Open http://localhost:8000 in your favourite browser.
+
+2. To run jshint and minify:
+====
+
+Have grunt installed
+
+run "grunt" in root folder
