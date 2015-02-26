@@ -1,5 +1,9 @@
 /* css file */
 
+.admin-settings .btn {
+	margin-top: 10px;
+}
+
 .select-admin-panle {
 	min-width: 100px;
 	margin-right: 10px;

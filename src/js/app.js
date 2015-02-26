@@ -67,11 +67,11 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
     	socket.emit('joinroom', { room: roomCalled }, function(success, reason) {
 		    if (reason === "banned") {
 		    	$scope.errorMessage = 'Join failed - You are banned!';
-		    	//console.log("Join failed - You are banned!");
+		    	console.log("Join failed - You are banned!");
 		    }
 		    if (!success) {
-		        //$scope.errorMessage = reason;
-		        //console.log(reason);
+		        $scope.errorMessage = reason;
+		        console.log(reason);
 		    }
 		    else {
 		        $location.path('/room/' + $scope.currentUser + '/' + roomCalled);
@@ -180,15 +180,26 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	$scope.banUser = function() {
 		socket.emit('ban', {user: $scope.userToKickBanOp, room: $scope.currentRoom}, function (success) {
 			if (success) {
-
-				$scope.successMessage = 'Successfully banned user';
+				$scope.successMessage = 'Successfully banned user ' + $scope.userToKickBanOp;
 				console.log("Successfully banned user: " + $scope.userToKickBanOp);
 			} else {
-				$scope.errorMessage = 'Failed to ban user';
+				$scope.errorMessage = 'Failed to ban user ' + $scope.userToKickBanOp;
 				console.log("Failed to ban user: " + $scope.userToKickBanOp);
 			}
 		});
 	};
+
+	$scope.unBanUser = function() {
+		socket.emit('unban', {user: $scope.userToUnban, room: $scope.currentRoom}, function (success) {
+			if (success) {
+				$scope.successMessage = 'Successfully unbanned ' + $scope.userToUnban;
+			} else {
+				$scope.errorMessage = 'Failed to ban user ' + $scope.userToUnban;
+			}
+			$scope.userToUnban = '';
+		});
+    	
+    };
 
 	$scope.opUser = function() {
 		socket.emit('op', {user: $scope.userToKickBanOp, room: $scope.currentRoom}, function (success) {
