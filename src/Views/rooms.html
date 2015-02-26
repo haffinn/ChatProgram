@@ -3,6 +3,11 @@
 </div>
  -->
 <div class="wrapper">
+
+<!--  	<div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 pull-left" ng-cloak ng-show="errorMessage != ''">
+		{{errorMessage}}
+	</div> -->
+
 	<div class="box-around col-lg-8 pull-left">
 		<h3>Hi {{currentUser}} - Active chat rooms
 			<button class="btn btn-danger pull-right" ng-click="discon()">Log out!</button>
@@ -15,7 +20,8 @@
 		</form>
 		<div class="rooms-window">
 			<ul class="rooms-list rooms-content">
-				<li ng-repeat="room in rooms"><a href="#/room/{{currentUser}}/{{room}}">{{room}}</a></li>
+				<!-- <li ng-repeat="room in rooms"><a href="#/room/{{currentUser}}/{{room}}">{{room}}</a></li> -->
+				<li ng-repeat="room in rooms"><a href ng-click="joinARoom(room)">{{room}}</a></li>
 			</ul>
 		</div>
 	</div>

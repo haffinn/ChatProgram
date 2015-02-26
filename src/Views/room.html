@@ -1,13 +1,16 @@
-<div class="alert alert-danger" ng-cloak ng-show="errorMessage != ''">
-	{{errorMessage}}
-</div>
-
 <div class="wrapper">
+	<div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 pull-left" ng-cloak ng-show="errorMessage != ''">
+		{{errorMessage}}
+	</div>
+	<div class="alert alert-success col-lg-12 col-md-12 col-sm-12 pull-left" ng-cloak ng-show="successMessage != ''">
+		{{successMessage}}
+	</div>
 
 	<div class="admin-tools box-around pull-left col-lg-12 col-md-12 col-sm-12">
 		<h3>Admin Tools:</h3>
 		<div class="admin-settings">
-			<label for="selUser">Select User</label>
+			<label for="selUser">Select User:</label>
+<!-- 			<label for="selUserban">Ban list:</label> -->
 			<select ng-model="userToKickBanOp" name="selUser" class="select-admin-panel">
 				<option ng-repeat="user in currentUsers" ng-value="{{user}}">{{user}}</option>
 			</select>
