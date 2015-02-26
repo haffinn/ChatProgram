@@ -47,7 +47,7 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
 	$scope.prvtMessageTo = '';
 
 	$scope.submitPrvtMsg = function() {
-	 	if($scope.prvtMessage !== ''){
+	 	if($scope.prvtMessage !== '') {
 	 		socket.emit('privatemsg', {nick: $scope.prvtMessageTo, message: $scope.prvtMessage, from: $scope.currentUser}, function (available) {
 				if (available) {
 					$scope.prvtMessages.push({nick: $scope.currentUser, message: $scope.prvtMessage});
@@ -66,11 +66,12 @@ ChatClient.controller('RoomsController', function ($scope, $location, $rootScope
     	console.log("Join a room called. Room requested is %" + roomCalled + "%");
     	socket.emit('joinroom', { room: roomCalled }, function(success, reason) {
 		    if (reason === "banned") {
-		    	console.log("Join failed - You are banned!");
+		    	$scope.errorMessage = 'Join failed - You are banned!'
+		    	//console.log("Join failed - You are banned!");
 		    }
 		    if (!success) {
-		        $scope.errorMessage = reason;
-		        console.log(reason);
+		        //$scope.errorMessage = reason;
+		        //console.log(reason);
 		    }
 		    else {
 		        $location.path('/room/' + $scope.currentUser + '/' + roomCalled);
@@ -143,7 +144,7 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	$scope.userToUnban = '';
 
 	$scope.submitMsg = function() {
-		if($scope.message !== ''){
+		if($scope.message !== '') {
 	 		socket.emit('sendmsg', {roomName: $scope.currentRoom, msg: $scope.message});
 			$scope.message = '';
 		}			
@@ -237,7 +238,7 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
 	});
 
 	socket.on('updateusers', function (roomName, users, ops) {
-		if(roomName === $scope.currentRoom){
+		if(roomName === $scope.currentRoom) {
 			console.log("opperators:");
 			// console log test:
 			var oplist = [];
@@ -268,7 +269,7 @@ ChatClient.controller('RoomController', function ($scope, $location, $rootScope,
     });
 
 	$scope.submitMsg = function() {
-	 	if($scope.message !== ''){
+	 	if($scope.message !== '') {
 	 		socket.emit('sendmsg', {roomName: $scope.currentRoom, msg: $scope.message});
 			$scope.message = '';
 	 	}			
